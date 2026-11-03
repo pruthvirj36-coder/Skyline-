@@ -28,8 +28,10 @@ jobs:
         run: |
           PAWNCC=$(find pawnc -name pawncc -type f | head -n 1)
           LIBDIR=$(dirname "$(find pawnc -name 'libpawnc.so' | head -n 1)")
+          INCDIR=$(dirname "$(find pawnc -name core.inc | head -n 1)")
+          echo "Compiler include dir: $INCDIR"
           export LD_LIBRARY_PATH="$LIBDIR"
-          "$PAWNCC" halloween.pwn -isamp-stdlib -ohalloween.amx '-;+' '-(+' -d3
+          "$PAWNCC" halloween.pwn -i"$INCDIR" -isamp-stdlib -ohalloween.amx '-;+' '-(+' -d3
 
       - uses: actions/upload-artifact@v4
         with:
